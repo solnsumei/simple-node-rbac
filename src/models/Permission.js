@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 
 const permissionSchema = new Schema({
-  value: {
+  name: {
     type: String,
     trim: true,
     index: true,

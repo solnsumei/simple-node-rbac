@@ -1,4 +1,4 @@
-# REST API Template
+# Simple NodeJS Setup Template with Role Base Access Control
 Template for building REST APIs with Node and Koa JS
 
 ### Features
@@ -9,6 +9,8 @@ Template for building REST APIs with Node and Koa JS
 - Database setup
 - Logging
 - Validation setup with @hapi/joi
+- Authentication
+- RBAC
 
 ### Built with
 - Node
@@ -21,6 +23,10 @@ Template for building REST APIs with Node and Koa JS
 - Setup your database and environmental variables as shown in the .env.example file
 - Add your code
 - Run
+
+### Seeding Default Data
+- edit `src/defaultSeeder.js` file
+- run `npm run seed`
 
 ### Using the validator
 - From your middleware folder, create a .js file to hold your middleware

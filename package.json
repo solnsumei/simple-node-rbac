@@ -7,6 +7,7 @@
     "start": "node src/bin/index.js",
     "dev": "nodemon src/bin/index.js",
     "lint": "eslint src/**/*.js",
+    "seed": "node src/seeders/defaultSeeder.js",
     "test": "jest --coverage --detectOpenHandles --forceExit -w 1"
   },
   "repository": {
