@@ -1,7 +1,8 @@
-const { Schema, model } = require('mongoose');
+const { BaseSchema, model } = require('./BaseSchema');
+const { permissions } = require('../utils/permissions');
 
 
-const userSchema = new Schema({
+const userSchema = new BaseSchema({
   name: {
     type: String,
     trim: true,
@@ -16,9 +17,21 @@ const userSchema = new Schema({
   password: {
     type: String,
     index: true,
+    hideJSON: true,
   },
-  roles: [{ type: Schema.Types.ObjectId, ref: 'Role' }],
-  assignedPermissions: [{ type: Schema.Types.ObjectId, ref: 'Permission' }],
+  roles: [{
+    type: String,
+    index: true,
+    uniqueItems: true,
+  }],
+  assignedPermissions: [{
+    type: String,
+    index: true,
+    enum: Object.values(permissions),
+    uniqueItems: true,
+  }],
 }, { timestamps: true });
+
+userSchema.useMongooseHidden();
 
 module.exports = model('User', userSchema, 'users');

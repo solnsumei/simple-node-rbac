@@ -1,5 +1,4 @@
 const Joi = require('@hapi/joi');
-const assert = require('assert');
 
 
 // validate function based off joi validation
@@ -11,11 +10,11 @@ module.exports = {
     query: 'query',
   },
   validate: ({ itemType, schema, opt }) => async (ctx, next) => {
-    assert(itemType, 'Item type must be provided');
-    assert(schema, 'Schema must be provided');
+    ctx.assert(itemType, 400);
+    ctx.assert(schema, 400);
 
     const requestToValidate = itemType === 'body' ? ctx.request.body : ctx[itemType];
-    const options = { ...opt, allowUnknown: true };
+    const options = { ...opt, allowUnknown: true, abortEarly: false };
 
     const result = schema.validate(requestToValidate, { ...options });
     if (!result.error) {

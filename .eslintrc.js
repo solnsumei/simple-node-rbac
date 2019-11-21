@@ -15,5 +15,7 @@ module.exports = {
   "rules": {
     "indent": ["error", 2],
     "no-undef": 2,
+    "no-useless-catch": 0,
+    "no-underscore-dangle": 0,
   }
 };

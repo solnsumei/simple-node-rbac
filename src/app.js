@@ -5,6 +5,7 @@ const logger = require('pino')();
 const connectDb = require('./lib/db');
 const config = require('./config')();
 const defaultRouter = require('./routers/default');
+const initializeRoutes = require('./routers');
 
 
 // Initialize app
@@ -27,6 +28,8 @@ const initializeApp = () => {
       ctx.app.emit('error', err, ctx);
     }
   });
+
+  initializeRoutes(app, config);
 
   app.use(defaultRouter.routes())
     .use(defaultRouter.allowedMethods({

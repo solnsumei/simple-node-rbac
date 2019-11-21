@@ -1,9 +1,9 @@
 const BaseDao = require('./BaseDao');
-const role = require('../models/Role');
+const Role = require('../models/Role');
 
 
 class RoleDao extends BaseDao {
 
 }
 
-module.exports = new RoleDao(role);
+module.exports = new RoleDao(Role);

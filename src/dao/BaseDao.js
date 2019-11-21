@@ -1,6 +1,9 @@
+const { Types } = require('mongoose');
+
 class BaseDao {
   constructor(model) {
     this.model = model;
+    this.ObjectId = Types.ObjectId;
   }
 
   async create(payload) {
@@ -11,16 +14,16 @@ class BaseDao {
     return this.model.insertMany(payload);
   }
 
-  async findById(id) {
-    return this.model.findById(id);
+  async findById(id, options = {}) {
+    return this.model.findById(id, '-__v', options);
   }
 
   async findOne(condition, options = {}) {
-    return this.model.findOne(condition, options);
+    return this.model.findOne(condition, '-__v', options);
   }
 
   async find(condition = {}, options = {}) {
-    return this.model.find(condition, options);
+    return this.model.find(condition, '-__v', options);
   }
 
   async findOneAndUpdate(condition, payload, options = {}) {
