@@ -5,6 +5,7 @@ const auth = require('../../middlewares/auth');
 const checkPermissions = require('../../middlewares/checkPermission');
 const { permissions } = require('../../utils/permissions');
 const { validateId } = require('../../middlewares/common');
+const { validateUserRole } = require('../../middlewares/userValidation');
 
 
 const router = new Router({
@@ -23,10 +24,13 @@ router.get('/', checkPermissions([
   permissions.CAN_CREATE_USER,
 ]), UsersController.fetchAllUsers);
 
-router.put('/:id/assign-role', checkPermissions([
-  permissions.CAN_VIEW_USER,
-  permissions.CAN_UPDATE_USER,
-  permissions.CAN_ASSIGN_ROLE,
-]), UsersController.updateRole);
+router.put('/:id/assign-role',
+  validateId(),
+  validateUserRole(),
+  checkPermissions([
+    permissions.CAN_VIEW_USER,
+    permissions.CAN_UPDATE_USER,
+    permissions.CAN_ASSIGN_ROLE,
+  ]), UsersController.updateRole);
 
 module.exports = router;

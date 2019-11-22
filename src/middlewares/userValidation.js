@@ -20,22 +20,20 @@ const validateLogin = () => validate({
   itemType: itemTypes.body,
 });
 
-const validateUserRole = () => async (ctx) => {
+const validateUserRole = () => async (ctx, next) => {
   const roles = await RoleDao.find({}, { lean: true }, 'name');
 
-  if (!roles || roles.length === 0) {
-    ctx.throw(409, 'You need to add roles first before assigning to users.');
-  }
+  ctx.assert(roles && roles.length > 0, 400,
+    'You need to add roles first before assigning to users.');
 
   const roleValues = roles.map((role) => role.name);
 
   return validate({
     schema: Joi.object({
-      roles: Joi.array().items(Joi.string().valid(...roleValues))
-        .unique().required(),
+      roles: Joi.array().items(Joi.string().valid(...roleValues)).unique().required(),
     }),
     itemType: itemTypes.body,
-  });
+  })(ctx, next);
 };
 
 module.exports = {
