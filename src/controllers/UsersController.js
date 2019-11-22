@@ -9,6 +9,10 @@ class UsersController {
     autoBind(this);
   }
 
+  /**
+   * Fetch all users
+   * @param {Object} ctx
+   */
   async fetchAllUsers(ctx) {
     try {
       const users = await this.userDao.findUsers({});
@@ -22,6 +26,10 @@ class UsersController {
     }
   }
 
+  /**
+  * Fetch a single user
+  * @param {Object} ctx
+  */
   async fetchUser(ctx) {
     const { id } = ctx.params;
     try {
@@ -33,6 +41,33 @@ class UsersController {
 
       ctx.body = {
         message: 'User fetched successfully',
+        user,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Update user role
+   * @param {Object} ctx
+   */
+  async updateRole(ctx) {
+    const { id } = ctx.params;
+    const { roles } = ctx.request.body;
+    try {
+      const user = await this.userDao.findOneAndUpdate(
+        { _id: this.userDao.ObjectId(id) },
+        { roles },
+        { new: true },
+      );
+
+      if (!user) {
+        notFoundError(ctx);
+      }
+
+      ctx.body = {
+        message: 'User\'s role updated successfully',
         user,
       };
     } catch (error) {

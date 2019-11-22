@@ -14,16 +14,16 @@ class BaseDao {
     return this.model.insertMany(payload);
   }
 
-  async findById(id, options = {}) {
-    return this.model.findById(id, '-__v', options);
+  async findById(id, options = {}, fields = '-__v') {
+    return this.model.findById(id, fields, options);
   }
 
-  async findOne(condition, options = {}) {
-    return this.model.findOne(condition, '-__v', options);
+  async findOne(condition, options = {}, fields = '-__v') {
+    return this.model.findOne(condition, fields, options);
   }
 
-  async find(condition = {}, options = {}) {
-    return this.model.find(condition, '-__v', options);
+  async find(condition = {}, options = {}, fields = '-__v') {
+    return this.model.find(condition, fields, options);
   }
 
   async findOneAndUpdate(condition, payload, options = {}) {

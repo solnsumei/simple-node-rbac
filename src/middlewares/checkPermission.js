@@ -18,19 +18,19 @@ const checkPermissions = (permissions) => async (ctx, next) => {
     const { user } = ctx.state;
 
     if (!user || (user.permissions.length === 0 && user.assignedPermissions.length === 0)) {
-      permissionError();
+      permissionError(ctx);
     }
 
     const { permissions: rolePermissions, assignedPermissions } = user;
 
     if (rolePermissions.length === 0 && assignedPermissions.permissions.length === 0) {
-      permissionError();
+      permissionError(ctx);
     }
 
     // Check if permission passed in is in user assigned permissions or user's role permissions
     if (!permissionArray.every((permission) => (rolePermissions
       .includes(permission) || assignedPermissions.includes(permission)))) {
-      permissionError();
+      permissionError(ctx);
     }
 
     return next();

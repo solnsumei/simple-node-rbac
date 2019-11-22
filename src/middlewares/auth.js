@@ -30,12 +30,11 @@ const authenticate = async (ctx, next) => {
     if (!user) {
       authError(ctx);
     }
-
     ctx.state.user = user;
-    return next();
   } catch (error) {
-    throw error;
+    authError(ctx);
   }
+  return next();
 };
 
 module.exports = authenticate;

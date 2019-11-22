@@ -23,4 +23,10 @@ router.get('/', checkPermissions([
   permissions.CAN_CREATE_USER,
 ]), UsersController.fetchAllUsers);
 
+router.put('/:id/assign-role', checkPermissions([
+  permissions.CAN_VIEW_USER,
+  permissions.CAN_UPDATE_USER,
+  permissions.CAN_ASSIGN_ROLE,
+]), UsersController.updateRole);
+
 module.exports = router;

@@ -12,7 +12,12 @@ const connectDb = ({ config, logger }) => {
   assert(dbUrl, 'Database url must be provided');
 
   mongoose.connect(dbUrl,
-    { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true })
+    {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    })
     .then(() => {
       logger.info('Database connected');
     },

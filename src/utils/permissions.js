@@ -20,6 +20,8 @@ const permissions = {
   CAN_VIEW_ROLE: 'role-view',
   CAN_UPDATE_ROLE: 'role-update',
   CAN_DELETE_ROLE: 'role-delete',
+  CAN_ASSIGN_ROLE: 'role-assign',
+  CAN_ASSIGN_USER_PERMISSION: 'user-permission-assignment',
 };
 
 module.exports = {
